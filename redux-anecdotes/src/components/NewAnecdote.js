@@ -8,7 +8,6 @@ const NewAnecdote = (props) => {
     e.preventDefault();
     const content = e.target.anecdote.value;
     e.target.anecdote.value = '';
-    console.log(content);
 
     dispatch(createAnecdote(content));
   };
