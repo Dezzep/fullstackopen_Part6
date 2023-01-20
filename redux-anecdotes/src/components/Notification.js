@@ -1,9 +1,7 @@
 import { useSelector } from 'react-redux';
 
 const Notification = () => {
-  const notification = useSelector((state) =>
-    state.action ? console.log(state.action) : null
-  );
+  const notification = useSelector((state) => state.notification.value);
   const style = {
     border: 'solid',
     padding: 10,
