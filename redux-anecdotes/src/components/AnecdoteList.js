@@ -24,7 +24,7 @@ const AnecdotesList = () => {
     <div>
       <h2>Anecdotes</h2>
       <Filter />
-      
+
       {sortedAnecdotes
         .filter((anecdote) => anecdote.content.includes(state.filter.filter))
         .sort((a, b) => b.votes - a.votes)

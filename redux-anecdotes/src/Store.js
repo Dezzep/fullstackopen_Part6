@@ -1,14 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import notifcationReducer, {
-  noteAddedNotification,
-  votedNotification,
-  removeNotification,
-} from './reducers/notificationReducer';
-import anecdoteReducer, {
-  createAnecdote,
-  voteFor,
-} from './reducers/anecdoteReducer';
-import filterReducer, { filterAnecdotes } from './reducers/filterReducer';
+import notifcationReducer from './reducers/notificationReducer';
+import anecdoteReducer from './reducers/anecdoteReducer';
+import filterReducer from './reducers/filterReducer';
 
 const store = configureStore({
   reducer: {
