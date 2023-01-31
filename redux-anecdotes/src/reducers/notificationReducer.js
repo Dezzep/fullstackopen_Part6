@@ -8,22 +8,29 @@ const notificationSlice = createSlice({
   name: 'notification',
   initialState: { value: '' },
   reducers: {
-    noteAddedNotification(state, action) {
-      const notification = action.payload;
-      state.value = 'Just added: ' + notification + ' to the list';
+    displayNotification(state, action) {
+      const message = action.payload;
+      state.value = message;
     },
-    votedNotification(state, action) {
-      const vote = action.payload;
-      console.log(vote);
-      state.value = 'You voted for: ' + vote.content;
-    },
+
     removeNotification(state) {
       state.value = '';
     },
   },
 });
 
-export const { noteAddedNotification, votedNotification, removeNotification } =
+export const { displayNotification, votedNotification, removeNotification } =
   notificationSlice.actions;
 
+export const setNotification = (message, timer) => {
+  return (dispatch) => {
+    const msTime = timer * 1000;
+    setTimeout(() => {
+      console.log('aaaaaa');
+      dispatch(removeNotification());
+    }, msTime);
+
+    dispatch(displayNotification(message));
+  };
+};
 export default notificationSlice.reducer;

@@ -1,9 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { voteFor } from '../reducers/anecdoteReducer';
-import {
-  votedNotification,
-  removeNotification,
-} from '../reducers/notificationReducer';
+import { setNotification } from '../reducers/notificationReducer';
 import Filter from './Filter';
 
 const AnecdotesList = () => {
@@ -11,11 +8,9 @@ const AnecdotesList = () => {
 
   const dispatch = useDispatch();
   const vote = (id) => {
-    dispatch(voteFor(id));
-    dispatch(votedNotification(state.anecdotes.find((a) => a.id === id)));
-    setTimeout(() => {
-      dispatch(removeNotification());
-    }, 5000);
+    const votedForAnecdote = state.anecdotes.find((a) => a.id === id);
+    dispatch(voteFor(votedForAnecdote));
+    dispatch(setNotification(`you voted: ${votedForAnecdote.content}`, 5));
   };
   // what is the type of state.filter.value
 
