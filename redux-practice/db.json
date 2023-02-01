@@ -1,0 +1,64 @@
+{
+  "notes": [
+    {
+      "content": "react query simplifies the communication with backend",
+      "important": false,
+      "id": 1
+    },
+    {
+      "content": "useReduce with context is an alternative way for data management",
+      "important": false,
+      "id": 2
+    },
+    {
+      "content": "does this work?",
+      "important": true,
+      "id": 3
+    },
+    {
+      "content": "All I had to do was invalidate the query.",
+      "important": true,
+      "id": 4
+    },
+    {
+      "content": "a",
+      "important": true,
+      "id": 5
+    },
+    {
+      "content": "asd",
+      "important": false,
+      "id": 6
+    },
+    {
+      "content": "123",
+      "important": false,
+      "id": 7
+    },
+    {
+      "content": "123",
+      "important": false,
+      "id": 8
+    },
+    {
+      "content": "hello?",
+      "important": true,
+      "id": 9
+    },
+    {
+      "content": "added",
+      "important": false,
+      "id": 10
+    },
+    {
+      "content": "add",
+      "important": true,
+      "id": 11
+    },
+    {
+      "content": "1234",
+      "important": true,
+      "id": 12
+    }
+  ]
+}

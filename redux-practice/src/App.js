@@ -1,32 +1,59 @@
-import { createNote, toggleImportanceOf } from './reducers/noteReducer';
-import { useSelector, useDispatch } from 'react-redux';
-import NewNote from './components/NewNote';
-import Notes from './components/Note';
-import VisibilityFilter from './components/VisibilityFilter';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { getNotes, createNote, updateNote } from './requests';
 
 const App = () => {
-  let filter = 'ALL';
-  const filterSelected = (value) => {};
+  const queryClient = useQueryClient();
+  const newNoteMutation = useMutation(createNote, {
+    onSuccess: (newNote) => {
+      const notes = queryClient.getQueryData('notes');
+      queryClient.setQueryData('notes', notes.concat(newNote));
+    },
+  });
 
-  const dispatch = useDispatch();
-  const notes = useSelector((state) => state);
+  const addNote = async (event) => {
+    event.preventDefault();
+    const content = event.target.note.value;
+    event.target.note.value = '';
+    newNoteMutation.mutate({ content, important: true });
+  };
+
+  const updateNoteMutation = useMutation(updateNote, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('notes');
+    },
+  });
+
+  const toggleImportance = (note) => {
+    updateNoteMutation.mutate({ ...note, important: !note.important });
+  };
+
+  const result = useQuery('notes', getNotes, {
+    refetchOnWindowFocus: false,
+  });
+
+  console.log(result);
+
+  if (result.isLoading) {
+    return <div>loading data...</div>;
+  }
+
+  const notes = result.data;
 
   return (
     <div>
-      <NewNote />
-      <VisibilityFilter />
-      <Notes />
+      <h2>Notes app</h2>
+      <form onSubmit={addNote}>
+        <input name="note" />
+        <button type="submit">add</button>
+      </form>
+      {notes.map((note) => (
+        <li key={note.id} onClick={() => toggleImportance(note)}>
+          {note.content}
+          <strong> {note.important ? 'important' : ''}</strong>
+        </li>
+      ))}
     </div>
-    // <div>
-    //   <div>{store.getState()}</div>
-    //   <button onClick={(e) => store.dispatch({ type: 'INCREMENT' })}>
-    //     plus
-    //   </button>
-    //   <button onClick={(e) => store.dispatch({ type: 'DECREMENT' })}>
-    //     minus
-    //   </button>
-    //   <button onClick={(e) => store.dispatch({ type: 'ZERO' })}>zero</button>
-    // </div>
   );
 };
+
 export default App;
